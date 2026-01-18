@@ -310,7 +310,7 @@ async function runBellmanFord() {
 
             // Highlight cạnh
             await highlightEdgeAndNodes(u, v, true);
-            await sleep(100);
+            await sleep(1000);
 
             // === LOGIC THƯ GIÃN ===
             if (dist[u] !== Infinity && dist[u] + w < dist[v]) {
@@ -355,10 +355,7 @@ async function runBellmanFord() {
                 <td style="padding:5px; border:1px solid #ccc; ${colorStyle} ${bgStyle}">${valNew}</td>
             `;
             tbody2.appendChild(row2);
-            // Tự động cuộn bảng 2 xuống dòng mới nhất
-            row2.scrollIntoView({ behavior: "smooth", block: "nearest" });
-
-
+           
             // Bỏ highlight
             await highlightEdgeAndNodes(u, v, false);
         }
@@ -371,7 +368,7 @@ async function runBellmanFord() {
             rowSummary.innerHTML += `<td style="font-weight:bold; color:#1565C0">${formatVal(dist[v], parent[v])}</td>`;
         });
         tbody1.appendChild(rowSummary);
-        await sleep(500);
+        await sleep(1000);
 
         if (!changeInLoop) {
              let rowStop = document.createElement('tr');
@@ -398,7 +395,7 @@ async function runBellmanFord() {
         rowFinal.innerHTML += `<td class="cell-final">${formatVal(dist[v], parent[v])}</td>`;
     });
     tbody1.appendChild(rowFinal);
-    rowFinal.scrollIntoView({ behavior: "smooth", block: "center" });
+ 
 
     // Render Text & Highlight Path
     const resultBox = document.getElementById('resultBox');
@@ -464,7 +461,7 @@ async function runDijkstra() {
         let rowIter = document.createElement('tr');
         rowIter.innerHTML = `<td colspan="${2 + uniqueVertices.length}" class="iteration-header">Xét đỉnh cố định: ${u} (d=${dist[u]})</td>`;
         tbody.appendChild(rowIter);
-        rowIter.scrollIntoView({ behavior: "smooth", block: "center" });
+        
         await sleep(300);
 
         const neighbors = edges.filter(e => e.u === u);
@@ -473,7 +470,7 @@ async function runDijkstra() {
             let updated = false;
 
             await highlightEdgeAndNodes(u, v, true);
-            await sleep(150);
+            await sleep(1500);
 
             if (!visited[v] && dist[u] + e.w < dist[v]) {
                 dist[v] = dist[u] + e.w;
@@ -514,7 +511,7 @@ async function runDijkstra() {
             rowSummary.innerHTML += `<td style="font-weight:bold; color:#1565C0">${formatVal(dist[v], parent[v])}</td>`;
         });
         tbody.appendChild(rowSummary);
-        await sleep(300);
+        await sleep(1000);
     }
 
     let rowFinal = document.createElement('tr');
@@ -682,6 +679,7 @@ async function flashUpdatedEdge(u, v) {
         line.setAttribute("stroke", "#FF5722"); // Màu Cam Đậm báo hiệu Update
         line.setAttribute("stroke-width", "5");
         // Dừng lại 1 chút để mắt người kịp nhìn thấy sự thay đổi
-        await sleep(400); 
+        await sleep(1000); 
     }
+
 }
